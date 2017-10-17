@@ -18,7 +18,7 @@ function get_nodes {
     
     for x in "${HOSTS[@]}"; 
     do 
-	ssh $x /bin/bash <<'ENDSSH' 
+	ssh $x /bin/bash <<- 'ENDSSH' 
 	echo $(hostname -f)
     	ls
 	ENDSSH
