@@ -17,11 +17,12 @@ function get_nodes {
     readarray HOSTS <<< "$(jq -r '.items[] | .Hosts | .host_name' hosts.json)";
     
     for x in "${HOSTS[@]}"; 
-    do ssh $x uname -a
-    yum update
-    done
-    
-    #echo ${HOSTS}
+    do 
+	ssh $x /bin/bash <<'ENDSSH' 
+	echo $(hostname -f)
+    	ls
+	ENDSSH
+    done   
 }
 
 function quit {
@@ -33,9 +34,6 @@ function hello {
 set_ssh
 get_nodes
 DOMAIN=$(hostname -d)
-hello
+#hello
 quit
 echo foo 
-
-# rm -f  test.json           
-#[.items[] | .Hosts | .host_name]
